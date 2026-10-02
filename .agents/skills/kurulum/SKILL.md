@@ -26,9 +26,38 @@ Sonra sorun: **"Devam edelim mi?"**
 
 ---
 
-## Adım 2 — Eldeki video envanteri
+### 1b. Becerileri kendi sistemine tanıt
 
-Montaj planı bu envantere dayanır. Şunları sorun, bilmiyorsanız birlikte bakın:
+Becerileri **Codex'in kendi skill dizinine** kopyala. Hangi dizin olduğunu sen araştır —
+belgede `~/.agents/skills/` diye geçiyor ama bu bir varsayımdır; doğruysa kullan, değilse
+**senin ortamında geçerli olan dizini kullan.**
+
+Kopyaladıktan sonra bana şunu söyle:
+
+- Becerileri **hangi dizine** kopyaladın
+- **Kaç beceri** kopyalandı
+- Kopyaladıktan sonra **yeniden başlatma** gerekiyor mu
+
+---
+
+## Adım 2 — Kaynak klasörünü belirleyin
+
+Videoların **hangi klasörden** okunacağını sorun ve kaydedin. **Varsayılan önermeyin.**
+
+Kullanıcı bir yol söyler; bu yol montaj boyunca kaynak medya olarak kullanılır. Sonraki
+adımlarda bu yolu referans alın.
+
+> Kullanıcı farklı bir yapı kurmak isterse (ör. müşteri başına klasör) bunu sorun ve not
+> alın — kurulum bu yapıya göre devam eder.
+
+Bu adım tek başına küçük ama atlanırsa tüm iş yanlış klasörde yapılır.
+
+---
+
+## Adım 3 — Eldeki video envanteri
+
+Montaj planı bu envantere dayanır. Adım 2'de klasör yolunu öğrendiniz; şimdi içindeki
+videoları tanıyın. Bilmiyorsanız komutlarla birlikte bakın.
 
 | Soru | Neden önemli |
 |---|---|
@@ -40,24 +69,11 @@ Montaj planı bu envantere dayanır. Şunları sorun, bilmiyorsanız birlikte ba
 | Hepsi aynı çekim mi, farklı çekimler mi? | Anlatı çizgisi kurulabilir mi |
 | Not aldığınız çekim bilgisi var mı? | Klipleri tanımlamayı kolaylaştırır |
 
-Videoların olduğu klasörü de sorun. **Varsayılan önermeyin, ondan sorun.**
+Dosyaları saymak için:
 
-> Levent'in 40 klibi `~/Müzik/2026-shoot/` içinde gibi bir öneri yapabilirsiniz, ama
-> kararı o versin.
-
----
-
-## Adım 3 — Kaynak klasörünü belirleyin
-
-Videoların **hangi klasörden** okunacağını sorun ve kaydedin. **Varsayılan önermeyin.**
-
-Kullanıcı bir yol söyler; bu yol montaj boyunca kaynak medya olarak kullanılır. Sonraki
-adımlarda bu yolu referans alın.
-
-> Kullanıcı farklı bir yapı kurmak isterse (ör. müşteri başına klasör) bunu sorun ve not
-> alın — kurulum bu yapıya göre devam eder.
-
-Bu adım tek başına küçük ama atlanırsa tüm iş yanlış klasörde yapılır.
+```bash
+ls -1 <kaynak-klasör>/*.{mov,mp4,MOV,MP4} 2>/dev/null | wc -l
+```
 
 ---
 
