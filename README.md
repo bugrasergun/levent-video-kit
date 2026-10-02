@@ -17,20 +17,33 @@ Elinizde kaç yüz dakikalık çekim var, müzik var, belli bir süre veya platf
 ## Hızlı başlangıç
 
 ```
-Bu videoyu izledim, ne yapabiliyorsun?
+/kurulum
 ```
 
-Ajandan bu soruyu sorun. O, **kurulum sihirbazını** çalıştırır ve size adım adım sorular sorar:
+ChatGPT'ye **`/kurulum`** yazın. Bu, kurulum sihirbazını başlatır ve size adım adım sorular
+sorar:
 
 1. Elinizde kaç video var, hangi formatta
 2. Videoları hangi klasörden okuyacak
-3. OpenMontage kurulumu
-4. Araç kontrolü
-5. Gerekli API anahtarları (hangi, ne kadar)
-6. Çıktılar nereye gidecek
-7. İlk deneme montajı
+3. Gerekli araçlar hazır mı (Python, Node, FFmpeg)
+4. Montaj motoru kurulumu
+5. Araç kontrolü
+6. Gerekli API anahtarları (hangi, ne kadar)
+7. Çıktılar nereye gidecek
+8. İlk deneme montajı
 
 **Her adımda onayınızı ister. Varsayılan dayatmaz.**
+
+> Codex'te beceri adıyla çağrılır: `/kurulum` ya da `$kurulum`.
+
+Kurulum bittikten sonra **montaj istekleri** için normal cümlelerle yazabilirsiniz:
+
+```
+~/Videolarim/2026-shoot içindeki kliblerden 45 saniyelik bir tanıtım videosu yap.
+Açılışta şehir silueti, ortada ürün, sonda marka logosu olsun.
+```
+
+Ajan `montaj-rehberi` becerisini kullanır, klipleri analiz eder ve size seçenekleri sunar.
 
 ---
 
