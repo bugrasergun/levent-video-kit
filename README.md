@@ -16,27 +16,14 @@ Elinizde kaç yüz dakikalık çekim var, müzik var, belli bir süre veya platf
 
 ## Hızlı başlangıç
 
-```
-/kurulum
-```
+**Adım 1:** Bu depodaki **[CHATGPTYE-YAPISTIRILACAK-MESAJ.md](CHATGPTYE-YAPISTIRILACAK-MESAJ.md)**
+dosyasındaki mesajı ChatGPT masaüstü uygulamasına yapıştırın. Mesaj hazırdır; kopyalayıp
+yapıştırmak yeterli.
 
-ChatGPT'ye **`/kurulum`** yazın. Bu, kurulum sihirbazını başlatır ve size adım adım sorular
-sorar:
+ChatGPT yalnızca repo adresini görür ve montaj sisteminizi kurmak için adım adım yardımcı
+olur. Ajan size sorular sorar, **her adımda onayınızı ister**, hiçbir şeyi varsaymaz.
 
-1. Elinizde kaç video var, hangi formatta
-2. Videoları hangi klasörden okuyacak
-3. Gerekli araçlar hazır mı (Python, Node, FFmpeg)
-4. Montaj motoru kurulumu
-5. Araç kontrolü
-6. Gerekli API anahtarları (hangi, ne kadar)
-7. Çıktılar nereye gidecek
-8. İlk deneme montajı
-
-**Her adımda onayınızı ister. Varsayılan dayatmaz.**
-
-> Codex'te beceri adıyla çağrılır: `/kurulum` ya da `$kurulum`.
-
-Kurulum bittikten sonra **montaj istekleri** için normal cümlelerle yazabilirsiniz:
+**Adım 2:** Kurulum bittikten sonra montaj istekleri için normal cümlelerle yazabilirsiniz:
 
 ```
 ~/Videolarim/2026-shoot içindeki kliblerden 45 saniyelik bir tanıtım videosu yap.
@@ -44,6 +31,10 @@ Açılışta şehir silueti, ortada ürün, sonda marka logosu olsun.
 ```
 
 Ajan `montaj-rehberi` becerisini kullanır, klipleri analiz eder ve size seçenekleri sunar.
+
+> Codex kullanıyorsanız beceriyi `/kurulum` ya da `$kurulum` ile çağırabilirsiniz.
+> ChatGPT masaüstü uygulamasında `~/.agents/skills/` altına kopyalanan becerileri
+> sohbet içinde adıyla çağırmak yerine yukarıdaki mesajla başlayın.
 
 ---
 
@@ -90,6 +81,7 @@ için [ANAHTAR-TABLOSU.md](ANAHTAR-TABLOSU.md).
 
 | Dosya | İçerik |
 |---|---|
+| **[CHATGPTYE-YAPISTIRILACAK-MESAJ.md](CHATGPTYE-YAPISTIRILACAK-MESAJ.md)** | **Kuruluma başlamak için hazır mesaj — bunu ChatGPT'ye yapıştırın** |
 | `KURULUM.md` | Adım adım kurulum kılavuzu |
 | `GEREKSINIMLER.md` | Hangi araç, hangi sürüm, nasıl kurulur |
 | `ANAHTAR-TABLOSU.md` | Hangi anahtar, ne için, ne kadar |
