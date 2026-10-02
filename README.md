@@ -56,18 +56,20 @@ Ajan "şunu yaptım" dediğinde, o teknik olarak doğru bir iş çıkarabilir am
 
 ## Kurulum gereksinimleri
 
-- **Mac** (macOS)
-- **ChatGPT masaüstü uygulaması** (Plus hesabı yeterli)
-- **FFmpeg** — video işleme, ücretsiz
-- **Node.js 22+** — bazı montaj stilleri için
+| Araç | Sürüm |
+|---|---|
+| **ChatGPT masaüstü uygulaması** | Plus hesabı yeterli |
+| **Python** | **3.10+** |
+| **Node.js** | **18+** |
+| **FFmpeg** | Güncel |
 
-Ajan bunları adım adım kontrol eder ve ne eksekse söyler.
+**macOS'ta `python3` genellikle eski sürüm gösterir (3.9 gibi).** Bu normaldir ama
+OpenMontage 3.10+ istiyor — ajan kontrol edip hangi sürümü kullanacağını söyler.
 
----
+Ayrıntılı liste, kurulum komutları ve doğrulama: [GEREKSINIMLER.md](GEREKSINIMLER.md)
 
-## API anahtarları
-
-Bazı işlemler için anahtar gerekir. **Ücretsiz olanlarla başlayabilirsiniz.** Her anahtarın ne işe yaradığı ve ücretli olup olmadığı `ANAHTAR-TABLOSU.md` dosyasında yazılıdır. Ajan kurulumda bunları sırayla sorar ve **her biri için maliyetini söyleyerek kararınıza bırakır.**
+API anahtarları gerekmez — montajın büyük kısmı tamamen yereldir. Anahtar gereken durumlar
+için [ANAHTAR-TABLOSU.md](ANAHTAR-TABLOSU.md).
 
 ---
 
@@ -76,6 +78,7 @@ Bazı işlemler için anahtar gerekir. **Ücretsiz olanlarla başlayabilirsiniz.
 | Dosya | İçerik |
 |---|---|
 | `KURULUM.md` | Adım adım kurulum kılavuzu |
+| `GEREKSINIMLER.md` | Hangi araç, hangi sürüm, nasıl kurulur |
 | `ANAHTAR-TABLOSU.md` | Hangi anahtar, ne için, ne kadar |
 | `KAYNAKLAR-LISANS.md` | Kullanılan açık kaynak materyaller ve lisansları |
 

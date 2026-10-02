@@ -47,33 +47,72 @@ Videoların olduğu klasörü de sorun. **Varsayılan önermeyin, ondan sorun.**
 
 ---
 
-## Adım 3 — OpenMontage kurulumu
+## Adım 3 — Kaynak klasörünü belirleyin
 
-Montaj motoru kendi kaynağından kurulur.
+Videoların **hangi klasörden** okunacağını sorun ve kaydedin. **Varsayılan önermeyin.**
 
-**1. Depoyu kopyalayın** — kullanıcıdan tam yolu isteyin (varsayılan:
+Kullanıcı bir yol söyler; bu yol montaj boyunca kaynak medya olarak kullanılır. Sonraki
+adımlarda bu yolu referans alın.
+
+> Kullanıcı farklı bir yapı kurmak isterse (ör. müşteri başına klasör) bunu sorun ve not
+> alın — kurulum bu yapıya göre devam eder.
+
+Bu adım tek başına küçük ama atlanırsa tüm iş yanlış klasörde yapılır.
+
+---
+
+## Adım 4 — Gereksinim kontrolü
+
+Montaj motorundan önce dört şeyin hazır olması gerekiyor:
+
+| Gereksinim | Sürüm | Kontrol | Karşılığı |
+|---|---|---|---|
+| **Python** | **3.10+** | `python3 --version` | `brew install python@3.12` |
+| **Node.js** | **18+** | `node --version` | `brew install node` |
+| **FFmpeg** | güncel | `ffmpeg -version` | `brew install ffmpeg` |
+| **Homebrew** | — | `brew --version` | [brew.sh](https://brew.sh) |
+
+> **macOS tuzağı:** Sistem `python3` komutu genellikle **3.9** gibi eski bir sürüm gösterir.
+> OpenMontage **3.10+** istiyor. Sürüm düşükse Homebrew ile güncel Python kurun ve kurulumda
+> o sürümü kullanacağınızı söyleyin.
+
+Tabloyu kullanıcıyla birlikte tek tek kontrol edin. Eksik olanı **önce onay alarak** kurun —
+özellikle Node ve FFmpeg büyük indirmelerdir.
+
+Ayrıntılı liste, indirme tahminleri ve doğrulama komutları:
+`GEREKSINIMLER.md` (paketin kökünde). Kullanıcı teknik bilgisi yoksa buraya yönlendirin.
+
+---
+
+## Adım 5 — Montaj motorunu kurun
+
+Gereksinimler (Adım 4) hazırsa motoru kurun. Kullanıcıdan tam yolu isteyin (varsayılan:
 `~/openmontage-workspace/repo`):
 
 ```bash
 git clone https://github.com/calesthio/OpenMontage.git ~/openmontage-workspace/repo
-```
-
-> Kullanıcı farklı bir yol seçtiyse clone komutundaki hedef yolu da değiştirin. Kaynak
-> adresi bu. Depoyu resmi kaynaktan başka bir yerden kopyalamayın.
-
-**2. Python ortamı** — pipeline için gerekli sürüm siz kurulduktan sonra ortaya çıkar.
-Depo kendi sanal ortamını kurar:
-
-```bash
 cd ~/openmontage-workspace/repo
-python3 -m venv venv
+make setup
 ```
 
-**3. Bu depoyu değiştirmeyin.** Salt-okunur çalışma malzemesidir. İçinde düzenleme,
-commit, fork veya yeniden dağıtım yapılmaz. Bir dosya yanlış görünürse bana sorun —
-düzeltmeyin.
+**`make setup` ne yapar** — hepsini tek komutta kurar:
 
-**4. Çıktı yönlendirmesini ayarlayın** — bu, kurulumun en kritik adımıdır.
+- Python sanal ortamını oluşturur (doğru sürümle)
+- Python bağımlılıklarını kurar (`requirements.txt`)
+- Remotion müzik kütüphanesini kurar (Node paketleri)
+- Ücretsiz çevrimdışı konuşma sentezini (Piper) dener
+- HyperFrames çalışma zamanını önden ısıtır (ilk render'da beklemek için)
+
+> **Elle kurmayın.** `pip install` veya `npm install` komutlarını tek tek çalıştırmak
+> **yarım bir kurulum** bırakır.
+
+Kurulum birkaç dakika sürer ve **~1–2 GB** indirir. Kullanıcıyı bilgilendirin, acele
+etmesin. Yarıda kesilirse `make setup` tekrar çalıştırılabilir — baştan başlatmaz.
+
+**Bu depoyu değiştirmeyin.** Salt-okunur çalışma malzemesidir. İçinde düzenleme, commit, fork
+veya yeniden dağıtım yapılmaz. Bir dosya yanlış görünürse kullanıcıya sorun — düzeltmeyin.
+
+### Çıktı yönlendirmesi — bu, kurulumun en kritik adımıdır
 
 Varsayılan olarak pipeline çıktıları repo içine yazar. Bu **istenmez**: sonra `git pull`
 veya yeniden klonlama çıktıları siler. Bunun yerine kendi klasörünüzü gösterin:
@@ -86,35 +125,37 @@ export OPENMONTAGE_PROJECTS_DIR=/kendi/proje/klasörünüz
 Bu ayar `git pull`, `reset --hard` ve tam yeniden klonlamadan sağ çıkar — çünkü değişken
 kendi kabuk ayarınızda durur ve depoda `.env` yoktur.
 
-Doğrulayın: yeni bir iş başlatın, klasör yapısı **sizin** klasörünüzde oluşuyor mu?
-Depoda değilse doğru yapılandırılmıştır.
+Doğrulayın: yeni bir iş başlatın, klasör yapısı **sizin** klasörünüzde oluşuyor mu? Depoda
+değilse doğru yapılandırılmıştır. Depoda `projects/` görüyorsanız bu ayar eklenmemiş demektir —
+geri dönüp ekleyin, çünkü sonraki `git pull` silecektir.
 
 ---
 
-## Adım 4 — Araç ön kontrolü
+## Adım 6 — Araç ön kontrolü
 
-Üç kurgu motorundan hangileri hazır? Bunu ölçün, tahmin etmeyin.
+Kurulumdan sonra üç kurgu motorundan hangilerinin hazır olduğunu ölçün, tahmin etmeyin:
 
 ```bash
+cd ~/openmontage-workspace/repo
 ffmpeg -version | head -1
 node --version
+./venv/bin/python --version
 ```
 
 | Motor | Gereken |
 |---|---|
 | **FFmpeg** | `ffmpeg` kurulu olmalı |
-| **Remotion** | Node.js + repo içindeki `remotion-composer/node_modules` kurulmuş olmalı |
-| **HyperFrames** | Node.js 22+ + FFmpeg + `npx hyperframes` erişilebilir olmalı |
+| **Remotion** | `remotion-composer/node_modules` kurulmuş olmalı (`make setup` yapar) |
+| **HyperFrames** | Node 18+ + FFmpeg + `npx hyperframes` erişilebilir |
 
-Eksik olanı kurun — repo içindeki kurulum notlarını okuyun. Her şeyi kurmadan önce
-**kullanıcıya sorun**; bazıları büyük indirme gerektirir.
+Eksik olan varsa motoru yeniden `make setup` ile kurun — tekrarı güvenlidir.
 
 Sonuçta ajan `ffmpeg`, `remotion`, `hyperframes` için hangilerinin hazır olduğunu bilmelidir.
 **İkisi de hazırsa ikisi de sunulur** — hangisini seçeceğine kullanıcı karar verir.
 
 ---
 
-## Adım 5 — API anahtarları
+## Adım 7 — API anahtarları
 
 Her anahtar için şu dört şeyi söyleyin, sonra **kararı kullanıcıya bırakın**:
 
@@ -142,7 +183,7 @@ Gerekli değilse anahtar istemeyin. Her anahtar günlük kullanım için ücret 
 
 ---
 
-## Adım 6 — Çıktı klasörü
+## Adım 8 — Çıktı klasörü
 
 Çıktılar nereye yazılsın? Bir öneri sunun, kararı kullanıcı versin.
 
@@ -171,7 +212,7 @@ işler bu adı referans alır.
 
 ---
 
-## Adım 7 — İlk iş denemesi
+## Adım 9 — İlk iş denemesi
 
 Kurulum bittiğini kanıtlamak için küçük bir iş yapın. 10–15 saniyelik bir montaj yeterli.
 
@@ -191,7 +232,7 @@ Bu iş montajınızın işi değil, **sistemin sizinle çalışıp çalışmadı
 
 ---
 
-## Adım 8 — Hazır
+## Adım 10 — Hazır
 
 Kurulum bitti. Bundan sonra:
 

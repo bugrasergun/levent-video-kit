@@ -64,11 +64,31 @@ ffmpeg -version     # kurulu olduğunu doğrulayın
 
 Paket, montaj motorunu **kendi kaynağından** kurmanızı sağlar.
 
+**Önce gereksinimleri tamamlayın** — ayrıntı için [GEREKSINIMLER.md](GEREKSINIMLER.md):
+
+| Gereksinim | Sürüm | Kontrol |
+|---|---|---|
+| Python | **3.10+** | `python3 --version` |
+| FFmpeg | güncel | `ffmpeg -version` |
+| Node.js | **18+** | `node --version` |
+| Git | güncel | `git --version` |
+
+> macOS'ta `python3` genellikle 3.9 gibi eski bir sürüm gösterir. OpenMontage 3.10+
+> istiyor — sürüm düşükse Homebrew ile güncel Python kurun.
+
+Kurulum **tek komutta** yapılır:
+
 ```bash
 git clone https://github.com/calesthio/OpenMontage.git ~/openmontage-workspace/repo
 cd ~/openmontage-workspace/repo
-python3 -m venv venv
+make setup
 ```
+
+> **Elle kurmayın.** `pip install` / `npm install` komutlarını tek tek çalıştırmak
+> **yarım bir kurulum** bırakır. `make setup` sanal ortamı, Python bağımlılıklarını,
+> Remotion'u, konuşma sentezini ve HyperFrames çalışma zamanını sırayla kurar.
+
+Kurulum birkaç dakika sürer ve ~1–2 GB indirir. Acele etmeyin.
 
 **Bu klasörü değiştirmeyin.** Salt-okunur çalışma malzemesidir.
 
